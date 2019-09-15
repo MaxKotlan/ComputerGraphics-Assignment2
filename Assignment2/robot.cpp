@@ -4,10 +4,10 @@
 Robot::Robot() {
 	std::vector <float> nullpos    = {   0.0,   0.0, 0.0 }; std::vector <float> nullrot = { 0.0, 0.0, 0.0, 0.0 };
 
-	std::vector <float> llegpos = { -30.0, -70.0, 0.0 }; //std::vector <float> llegrot = { 90.0, 1.0, 0.0, 0.0 };
-	std::vector <float> rlegpos = {  30.0, -70.0, 0.0 }; //std::vector <float> llegrot = { 90.0, 1.0, 0.0, 0.0 };
-	std::vector <float> larmpos = { -70.0,  30.0, 0.0 }; std::vector <float> larmrot = { 90.0, 0.0, 1.0, 0.0 };
-	std::vector <float> rarmpos = {  70.0,  30.0, 0.0 }; std::vector <float> rarmrot = { 90.0, 0.0, 1.0, 0.0 };
+	std::vector <float> llegpos = { -30.0, -75.0, 0.0 }; //std::vector <float> llegrot = { 90.0, 1.0, 0.0, 0.0 };
+	std::vector <float> rlegpos = {  30.0, -75.0, 0.0 }; //std::vector <float> llegrot = { 90.0, 1.0, 0.0, 0.0 };
+	std::vector <float> larmpos = { -75.0,  30.0, 0.0 }; std::vector <float> larmrot = { 90.0, 0.0, 1.0, 0.0 };
+	std::vector <float> rarmpos = {  75.0,  30.0, 0.0 }; std::vector <float> rarmrot = { 90.0, 0.0, 1.0, 0.0 };
 	std::vector <float> torspos = {   0.0,   0.0, 0.0 }; //std::vector <float> llegrot = { 90.0, 1.0, 0.0, 0.0 };
 	std::vector <float> headpos = {   0.0,  60.0, 0.0 }; std::vector <float> headrot = { 90.0, 0.0, 1.0, 0.0 };
 

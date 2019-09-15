@@ -6,16 +6,16 @@
 #define WIN_W 1920
 #define WIN_H 1080
 
-GLfloat rot = .01;
+GLfloat rot = .1;
 bool bXaxis = false;
 bool bYaxis = false;
 bool bZaxis = false;
 bool bMouseDown = false;
 
-Robot robot[10][10];
+Robot robot[10][50];
 
 void myDisplay(void) {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
 
@@ -31,10 +31,10 @@ void myDisplay(void) {
 
 	//glRotatef(rot, 0.0f, 1.0f, 0.0f);
 	for (int x = 0; x < 10; x++) {
-		for (int y = 0; y < 10; y++) {
-			robot[x][y]._position[0] = x * 200 - 1000;
-			robot[x][y]._position[1] = y * 200 - 1000;
-			robot[x][y].draw();
+		for (int z = 0; z < 50; z++) {
+			robot[x][z]._position[0] = x * 250 - 10 * 250/2;
+			robot[x][z]._position[2] = z * 250 - (50*250)/2;
+			robot[x][z].draw();
 		}
 	}
 	glFlush();
@@ -43,11 +43,20 @@ void myDisplay(void) {
 void init(void)
 {
 	glClearColor(.8, 0.8, 0.8, 0.0);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	
+	/*
 	glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
-		WIN_H / 2, 10, 3000);
-	glTranslatef(0.0, 0.0, -500.0);
+		WIN_H / 2, 0.1, 10000); */
+
+	
+	gluPerspective(90., 1920.0 / 1080.0, 0.1, 10000.); 
+
+	glTranslatef(0.0, 200.0, -500.0);
 	
 }
 
