@@ -1,33 +1,71 @@
 ﻿#include <GL/glut.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
 
-void MyDisplay() {                      //디스플레이 콜백함수
-	glClear(GL_COLOR_BUFFER_BIT);       //GL 상태변수 설정
-	glViewport(0, 0, 300, 300);
+#define WIN_W 640
+#define WIN_H 480
+#define SIZE 100
+
+GLfloat rot = .1;
+bool bXaxis = false;
+bool bYaxis = false;
+bool bZaxis = false;
+bool bMouseDown = false;
+
+void myDisplay(void) {
+	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);                //입력 기본요소 정의
-	glVertex3f(-0.5, -0.5, 0.0);
-	glVertex3f(0.5, -0.5, 0.0);
-	glVertex3f(0.5, 0.5, 0.0);
-	glVertex3f(-0.5, 0.5, 0.0);
-	glEnd();
+	glMatrixMode(GL_MODELVIEW);
+	if (!bMouseDown)
+	{
+		if (bXaxis) glRotatef(rot, 1.0f, 0.0f, 0.0f);
+		else if (bYaxis) glRotatef(rot, 0.0f, 1.0f, 0.0f);
+		else if (bZaxis) glRotatef(rot, 0.0f, 0.0f, 1.0f);
+		else glRotatef(rot, 1.0f, 1.0f, 1.0f);
+	}
+	glutWireTeapot(SIZE);
 	glFlush();
 }
 
-int main(int argc, char** argv) {
-	glutInit(&argc, argv);               //GLUT 윈도우 함수
-	glutInitDisplayMode(GLUT_RGB);
-	glutInitWindowSize(300, 300);
-	glutInitWindowPosition(0, 0);
-	glutCreateWindow("OpenGL Sample Drawing");
-
-	glClearColor(0.0, 0.0, 0.0, 1.0);   //GL 상태변수 설정
+void init(void)
+{
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
+		WIN_H / 2, -100, 100);
+}
 
-	glutDisplayFunc(MyDisplay);         //GLUT 콜백함수 등록
-	glutMainLoop();                     //이벤트 루프 진입
+void procKeys(unsigned char key, int x, int y)
+{
+	switch (key) {
+	case 'x': bXaxis = true; bYaxis = false;
+		bZaxis = false;  break;
+	case 'y': bYaxis = true; bXaxis = false;
+		bZaxis = false;  break;
+	case 'z': bZaxis = true; bXaxis = false;
+		bYaxis = false; break;
+	case 'i': rot += .1; // increment the rotation
+	case 27: exit(0); break;
+	}
+}
+
+void procMouse(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+		bMouseDown = true;
+	else bMouseDown = false;
+}
+
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(WIN_W, WIN_H);
+	glutCreateWindow("Ex4 ‐ Object Rotation with the mouse");
+	init();
+	glutDisplayFunc(myDisplay);
+	glutIdleFunc(myDisplay);
+	glutKeyboardFunc(procKeys);
+	glutMouseFunc(procMouse);
+	glutMainLoop();
 	return 0;
 }
