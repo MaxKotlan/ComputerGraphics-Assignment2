@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="robot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="lib\freeglut.dll">
@@ -90,6 +91,9 @@
     <CopyFileToFolders Include="lib\glfw3.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="robot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
