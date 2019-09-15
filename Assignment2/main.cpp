@@ -3,8 +3,8 @@
 #include "robot.h"
 #include <time.h>
 
-#define WIN_W 1920
-#define WIN_H 1080
+int WIN_W = 1920;
+int WIN_H = 1080;
 
 GLfloat rot = .1;
 bool bXaxis = false;
@@ -36,8 +36,8 @@ void myDisplay(void) {
 		for (int z = 0; z < 50; z++) {
 			robot[x][z]._position[0] = x * 250 - 10 * 250/2;
 			robot[x][z]._position[2] = z * 250 - (50*250)/2;
-			robot[x][z]._rotation[0] = 0.01* displaytime;
-			robot[x][z]._rotation[1] = 0.01 * displaytime;
+			//robot[x][z]._rotation[0] = 0.01* displaytime;
+			//robot[x][z]._rotation[1] = 0.01 * displaytime;
 			robot[x][z].draw();
 		}
 	}
@@ -49,19 +49,25 @@ void init(void)
 	glClearColor(.8, 0.8, 0.8, 0.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-
+	glViewport(0, 0, WIN_W, WIN_H);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	/*
-	glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
-		WIN_H / 2, 0.1, 10000); */
+	
+	//glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
+	//	WIN_H / 2, 0.1, 10000); 
 
 	
-	gluPerspective(90., 1920.0 / 1080.0, 0.1, 10000.); 
+	gluPerspective(90., WIN_W / WIN_H, 0.1, 10000.);
 
 	glTranslatef(0.0, 200.0, -500.0);
 	
+}
+
+void onreshape(int width, int height) {
+	WIN_W = width;
+	WIN_H = height;
+	init();
 }
 
 void procKeys(unsigned char key, int x, int y)
@@ -97,6 +103,7 @@ int main(int argc, char** argv) {
 	init();
 	glutDisplayFunc(myDisplay);
 	glutIdleFunc(myDisplay);
+	glutReshapeFunc(onreshape);
 	glutKeyboardFunc(procKeys);
 	glutMouseFunc(procMouse);
 	glutMainLoop();
