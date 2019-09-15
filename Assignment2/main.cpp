@@ -1,4 +1,4 @@
-﻿#include <GL/glut.h>
+#include <GL/glut.h>
 
 #include "robot.h"
 #include <time.h>
@@ -12,7 +12,7 @@ bool bYaxis = false;
 bool bZaxis = false;
 bool bMouseDown = false;
 
-Robot robot;
+Robot robot[10][10];
 
 void myDisplay(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -30,8 +30,13 @@ void myDisplay(void) {
 	} 
 
 	//glRotatef(rot, 0.0f, 1.0f, 0.0f);
-
-	robot.draw();
+	for (int x = 0; x < 10; x++) {
+		for (int y = 0; y < 10; y++) {
+			robot[x][y]._position[0] = x * 200 - 1000;
+			robot[x][y]._position[1] = y * 200 - 1000;
+			robot[x][y].draw();
+		}
+	}
 	glFlush();
 }
 
@@ -41,7 +46,9 @@ void init(void)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
-		WIN_H / 2, -100, 100);
+		WIN_H / 2, 10, 3000);
+	glTranslatef(0.0, 0.0, -100.0);
+	
 }
 
 void procKeys(unsigned char key, int x, int y)
@@ -73,7 +80,7 @@ int main(int argc, char** argv) {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(WIN_W, WIN_H);
-	glutCreateWindow("Ex4 ‐ Object Rotation with the mouse");
+	glutCreateWindow("Assignment 2");
 	init();
 	glutDisplayFunc(myDisplay);
 	glutIdleFunc(myDisplay);
