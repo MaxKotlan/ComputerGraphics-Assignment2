@@ -1,5 +1,7 @@
 ﻿#include <GL/glut.h>
 
+#include "robot.h"
+
 #define WIN_W 640
 #define WIN_H 480
 #define SIZE 100
@@ -9,6 +11,8 @@ bool bXaxis = false;
 bool bYaxis = false;
 bool bZaxis = false;
 bool bMouseDown = false;
+
+Robot robot;
 
 void myDisplay(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -21,6 +25,7 @@ void myDisplay(void) {
 		else if (bZaxis) glRotatef(rot, 0.0f, 0.0f, 1.0f);
 		else glRotatef(rot, 1.0f, 1.0f, 1.0f);
 	}
+	robot.draw();
 	glutWireTeapot(SIZE);
 	glFlush();
 }
