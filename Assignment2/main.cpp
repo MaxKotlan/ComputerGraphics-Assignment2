@@ -3,8 +3,8 @@
 #include "robot.h"
 #include <time.h>
 
-int WIN_W = 1920;
-int WIN_H = 1080;
+int WIN_W = 800;
+int WIN_H = 600;
 
 GLfloat rot = .1;
 bool bXaxis = false;
@@ -59,7 +59,7 @@ void init(void)
 		gluPerspective(90., WIN_W / WIN_H + 1.0, 0.1, 10000.);
 	else
 		glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
-		WIN_H / 2, 0.0, 10000); 
+		WIN_H / 2, -30000, 10000); 
 
 	
 
