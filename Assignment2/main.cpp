@@ -11,6 +11,7 @@ bool bXaxis = false;
 bool bYaxis = false;
 bool bZaxis = false;
 bool bMouseDown = false;
+bool perspective = false;
 
 int displaytime = 0;
 
@@ -54,13 +55,15 @@ void init(void)
 	glLoadIdentity();
 	
 	
-	//glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
-	//	WIN_H / 2, 0.1, 10000); 
+	if (perspective) 
+		gluPerspective(90., WIN_W / WIN_H + 1.0, 0.1, 10000.);
+	else
+		glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
+		WIN_H / 2, 0.0, 10000); 
 
 	
-	gluPerspective(90., WIN_W / WIN_H, 0.1, 10000.);
 
-	glTranslatef(0.0, 200.0, -500.0);
+	glTranslatef(0.0, 400.0, -500.0);
 	
 }
 
@@ -79,7 +82,9 @@ void procKeys(unsigned char key, int x, int y)
 		bZaxis = false;  break;
 	case 'z': bZaxis = true; bXaxis = false;
 		bYaxis = false; break;
-	case 'i': rot += .1; // increment the rotation
+	case 'i': rot += .1; break; // increment the rotation
+	case 'o': rot -= .1; break; // increment the rotation
+	case 'p': perspective = !perspective; init(); break;
 	case 27: exit(0); break;
 	}
 }
