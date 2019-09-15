@@ -1,9 +1,10 @@
 ﻿#include <GL/glut.h>
 
 #include "robot.h"
+#include <time.h>
 
-#define WIN_W 640
-#define WIN_H 480
+#define WIN_W 1920
+#define WIN_H 1080
 
 GLfloat rot = .01;
 bool bXaxis = false;
@@ -65,6 +66,9 @@ void procMouse(int button, int state, int x, int y)
 }
 
 int main(int argc, char** argv) {
+
+	srand(time(nullptr));
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(100, 100);

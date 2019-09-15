@@ -38,6 +38,7 @@ public:
 private:
 	Robot* _robot;
 
+	std::vector<unsigned char>   _color;
 	std::vector<float> _offset_pos;
 	std::vector<float> _offset_rot;
 };
@@ -49,6 +50,7 @@ public:
 private:
 	Robot* _robot;
 
+	std::vector<unsigned char> _color;
 	std::vector<float> _offset_pos;
 	std::vector<float> _offset_rot;
 };
@@ -60,6 +62,7 @@ public:
 private:
 	Robot* _robot;
 
+	std::vector<unsigned char>   _color;
 	std::vector<float> _offset_pos;
 	std::vector<float> _offset_rot;
 };
@@ -71,6 +74,7 @@ public:
 private:
 	Robot* _robot;
 
+	std::vector<unsigned char>   _color;
 	std::vector<float> _offset_pos;
 	std::vector<float> _offset_rot;
 };
