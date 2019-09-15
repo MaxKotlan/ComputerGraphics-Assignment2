@@ -47,7 +47,7 @@ void init(void)
 	glLoadIdentity();
 	glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
 		WIN_H / 2, 10, 3000);
-	glTranslatef(0.0, 0.0, -100.0);
+	glTranslatef(0.0, 0.0, -500.0);
 	
 }
 
