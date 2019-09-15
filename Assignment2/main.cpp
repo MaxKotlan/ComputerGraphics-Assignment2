@@ -42,7 +42,7 @@ void myDisplay(void) {
 
 void init(void)
 {
-	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClearColor(.8, 0.8, 0.8, 0.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-WIN_W / 2, WIN_W / 2, -WIN_H / 2,
