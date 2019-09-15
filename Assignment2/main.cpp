@@ -4,9 +4,8 @@
 
 #define WIN_W 640
 #define WIN_H 480
-#define SIZE 100
 
-GLfloat rot = .1;
+GLfloat rot = .01;
 bool bXaxis = false;
 bool bYaxis = false;
 bool bZaxis = false;
@@ -18,15 +17,20 @@ void myDisplay(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
+
+	
+	
 	if (!bMouseDown)
 	{
 		if (bXaxis) glRotatef(rot, 1.0f, 0.0f, 0.0f);
 		else if (bYaxis) glRotatef(rot, 0.0f, 1.0f, 0.0f);
 		else if (bZaxis) glRotatef(rot, 0.0f, 0.0f, 1.0f);
 		else glRotatef(rot, 1.0f, 1.0f, 1.0f);
-	}
+	} 
+
+	//glRotatef(rot, 0.0f, 1.0f, 0.0f);
+
 	robot.draw();
-	glutWireTeapot(SIZE);
 	glFlush();
 }
 

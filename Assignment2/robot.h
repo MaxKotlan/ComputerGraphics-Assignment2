@@ -17,9 +17,11 @@ private:
 	Torso* _torso;
 	Head*  _head;
 
+public:
+
 	std::vector<float> _position;
 	std::vector<float> _rotation;
-public:
+
 	Robot();
 	Robot(std::vector<float> position, std::vector<float> rotation);
 
@@ -39,5 +41,39 @@ private:
 	std::vector<float> _offset_pos;
 	std::vector<float> _offset_rot;
 };
+
+class Robot::Arm {
+public:
+	Arm(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
+	void draw();
+private:
+	Robot* _robot;
+
+	std::vector<float> _offset_pos;
+	std::vector<float> _offset_rot;
+};
+
+class Robot::Torso {
+public:
+	Torso(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
+	void draw();
+private:
+	Robot* _robot;
+
+	std::vector<float> _offset_pos;
+	std::vector<float> _offset_rot;
+};
+
+class Robot::Head {
+public:
+	Head(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
+	void draw();
+private:
+	Robot* _robot;
+
+	std::vector<float> _offset_pos;
+	std::vector<float> _offset_rot;
+};
+
 
 #endif
