@@ -12,6 +12,8 @@ bool bYaxis = false;
 bool bZaxis = false;
 bool bMouseDown = false;
 
+int displaytime = 0;
+
 Robot robot[10][50];
 
 void myDisplay(void) {
@@ -19,7 +21,7 @@ void myDisplay(void) {
 	glColor3f(1.0, 1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
 
-	
+	displaytime++;
 	
 	if (!bMouseDown)
 	{
@@ -34,6 +36,8 @@ void myDisplay(void) {
 		for (int z = 0; z < 50; z++) {
 			robot[x][z]._position[0] = x * 250 - 10 * 250/2;
 			robot[x][z]._position[2] = z * 250 - (50*250)/2;
+			robot[x][z]._rotation[0] = 0.01* displaytime;
+			robot[x][z]._rotation[1] = 0.01 * displaytime;
 			robot[x][z].draw();
 		}
 	}
