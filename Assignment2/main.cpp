@@ -69,7 +69,7 @@ void init(void)
 
 	
 
-	glTranslatef(0.0, 400.0, -500.0);
+	glTranslatef(0.0, -400.0, -500.0);
 	
 }
 
