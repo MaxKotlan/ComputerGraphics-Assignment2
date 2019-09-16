@@ -15,7 +15,12 @@ bool perspective = false;
 
 int displaytime = 0;
 
-Robot robot[10][50];
+const int numRobots_x = 10;
+const int numRobots_z = 90;
+const int robot_spacing_x = 250;
+const int robot_spacing_z = 100;
+
+Robot robot[numRobots_x][numRobots_z];
 
 void myDisplay(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -35,10 +40,11 @@ void myDisplay(void) {
 	//glRotatef(rot, 0.0f, 1.0f, 0.0f);
 	for (int x = 0; x < 10; x++) {
 		for (int z = 0; z < 50; z++) {
-			robot[x][z]._position[0] = x * 250 - 10 * 250/2;
-			robot[x][z]._position[2] = z * 250 - (50*250)/2;
-			//robot[x][z]._rotation[0] = 0.01* displaytime;
-			//robot[x][z]._rotation[1] = 0.01 * displaytime;
+			robot[x][z]._position[0] = x * robot_spacing_x - (numRobots_x  * robot_spacing_x)/2;
+			robot[x][z]._position[2] = z * robot_spacing_z - (numRobots_z * robot_spacing_z)/2;
+			//robot[x][z]._rotation[0] = rot;
+			//robot[x][z]._rotation[1] = 0.01;
+			robot[x][z].shakeHead();
 			robot[x][z].draw();
 		}
 	}

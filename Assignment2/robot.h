@@ -25,6 +25,8 @@ public:
 	Robot();
 	Robot(std::vector<float> position, std::vector<float> rotation);
 
+	void shakeHead();
+
 	~Robot();
 
 	void draw();
@@ -71,6 +73,7 @@ class Robot::Head {
 public:
 	Head(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
 	void draw();
+	void shake();
 private:
 	Robot* _robot;
 

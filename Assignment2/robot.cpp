@@ -40,6 +40,12 @@ Robot::~Robot() {
 	delete _head;
 }
 
+void Robot::shakeHead() {
+	_head->shake();
+}
+
+
+
 void Robot::draw() {
 	_leftleg->draw();
 	_rightleg->draw();
@@ -142,6 +148,20 @@ Robot::Head::Head(Robot* robot, std::vector<float> offset_pos, std::vector<float
 	_offset_rot = offset_rot;
 
 	_color = { unsigned char(rand() % 255), unsigned char(rand() % 255), unsigned char(rand() % 255) };
+}
+
+bool lookLeft = true;
+
+void Robot::Head::shake() {
+	_offset_rot[0] += 1.0;
+
+	if (!lookLeft)
+		_offset_rot[0] -= 2.0;
+	
+	if (_offset_rot[0] > 120)
+		lookLeft = false;
+	if (_offset_rot[0] < 60)
+		lookLeft = true;
 }
 
 void Robot::Head::draw() {
