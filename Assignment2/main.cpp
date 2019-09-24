@@ -13,7 +13,8 @@ bool bZaxis = false;
 bool bMouseDown = false;
 bool perspective = false;
 
-int displaytime = 0;
+bool wireframe = false;
+bool clear = false;
 
 const int numRobots_x = 10;
 const int numRobots_z = 90;
@@ -26,9 +27,12 @@ void myDisplay(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
-
-	displaytime++;
 	
+	if(wireframe)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	if (!bMouseDown)
 	{
 		if (bXaxis) glRotatef(rot, 1.0f, 0.0f, 0.0f);
@@ -48,12 +52,14 @@ void myDisplay(void) {
 			robot[x][z].draw();
 		}
 	}
+	if (clear)
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glFlush();
 }
 
 void init(void)
 {
-	glClearColor(.8, 0.8, 0.8, 0.0);
+	glClearColor(.1, 0.1, 0.1, 0.0);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glViewport(0, 0, WIN_W, WIN_H);
@@ -79,6 +85,10 @@ void onreshape(int width, int height) {
 	init();
 }
 
+void procMenu(int id) {
+	if (id == 0) wireframe = true;
+}
+
 void procKeys(unsigned char key, int x, int y)
 {
 	switch (key) {
@@ -88,6 +98,10 @@ void procKeys(unsigned char key, int x, int y)
 		bZaxis = false;  break;
 	case 'z': bZaxis = true; bXaxis = false;
 		bYaxis = false; break;
+	case 'w': wireframe = true; break;
+	case 's': wireframe = false; break;
+	case 'c': clear = true; break;
+	case 'm': clear = false; break;
 	case 'i': rot += .1; break; // increment the rotation
 	case 'o': rot -= .1; break; // increment the rotation
 	case 'p': perspective = !perspective; init(); break;
