@@ -3,8 +3,8 @@
 #include "robot.h"
 #include <time.h>
 
-int WIN_W = 1920 - 25;
-int WIN_H = 1080 - 50;
+int WIN_W = 800;
+int WIN_H = 600;
 
 GLfloat rot = .1;
 bool bXaxis = false;
@@ -266,7 +266,7 @@ int main(int argc, char** argv) {
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	//glutInitWindowPosition(100, 100);
+	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(WIN_W, WIN_H);
 	glutCreateWindow("Maxwell Kotlan");
 	glutMouseWheelFunc(mouseWheel);
