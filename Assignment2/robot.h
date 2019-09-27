@@ -26,6 +26,8 @@ public:
 	Robot(std::vector<float> position, std::vector<float> rotation);
 
 	void shakeHead();
+	void randomColor();
+	void setColor(float r, float g, float b);
 
 	~Robot();
 
@@ -37,6 +39,8 @@ class Robot::Leg {
 public:
 	Leg(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
 	void draw();
+	void randomColor();
+	void setColor(float r, float g, float b);
 private:
 	Robot* _robot;
 
@@ -49,6 +53,8 @@ class Robot::Arm {
 public:
 	Arm(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
 	void draw();
+	void randomColor();
+	void setColor(float r, float g, float b);
 private:
 	Robot* _robot;
 
@@ -61,6 +67,8 @@ class Robot::Torso {
 public:
 	Torso(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
 	void draw();
+	void randomColor();
+	void setColor(float r, float g, float b);
 private:
 	Robot* _robot;
 
@@ -74,6 +82,8 @@ public:
 	Head(Robot* _robot, std::vector<float> offset_pos, std::vector<float> offset_rot);
 	void draw();
 	void shake();
+	void randomColor();
+	void setColor(float r, float g, float b);
 private:
 	Robot* _robot;
 

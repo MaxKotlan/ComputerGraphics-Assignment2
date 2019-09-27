@@ -66,6 +66,24 @@ void Robot::draw() {
 	
 }
 
+void Robot::randomColor() {
+	_leftleg->randomColor();
+	_rightleg->randomColor();
+	_leftarm->randomColor();
+	_rightarm->randomColor();
+	_torso->randomColor();
+	_head->randomColor();
+}
+
+void Robot::setColor(float r, float g, float b) {
+	_leftleg->setColor(r,g,b);
+	_rightleg->setColor(r, g, b);
+	_leftarm->setColor(r, g, b);
+	_rightarm->setColor(r, g, b);
+	_torso->setColor(r, g, b);
+	_head->setColor(r, g, b);
+}
+
 Robot::Leg::Leg(Robot* robot, std::vector<float> offset_pos, std::vector<float> offset_rot) {
 	_robot = robot;
 	_offset_pos = offset_pos;
@@ -94,6 +112,14 @@ void Robot::Leg::draw() {
 	glPopMatrix();
 }
 
+void Robot::Leg::randomColor() {
+	_color = { unsigned char(rand() % 255), unsigned char(rand() % 255), unsigned char(rand() % 255) };
+}
+
+void Robot::Leg::setColor(float r, float g, float b) {
+	_color = { unsigned char(r * 255.), unsigned char(g * 255), unsigned char(b * 255) };
+}
+
 
 Robot::Arm::Arm(Robot* robot, std::vector<float> offset_pos, std::vector<float> offset_rot) {
 	_robot = robot;
@@ -120,6 +146,14 @@ void Robot::Arm::draw() {
 	glScaled(1.0, 1.0, 2.0);
 	glutSolidCube(30);
 	glPopMatrix();
+}
+
+void Robot::Arm::randomColor() {
+	_color = { unsigned char(rand() % 255), unsigned char(rand() % 255), unsigned char(rand() % 255) };
+}
+
+void Robot::Arm::setColor(float r, float g, float b) {
+	_color = { unsigned char(r * 255.), unsigned char(g * 255.), unsigned char(b * 255.) };
 }
 
 
@@ -151,6 +185,15 @@ void Robot::Torso::draw() {
 	glutSolidCube(30);
 	glPopMatrix();
 }
+
+void Robot::Torso::randomColor() {
+	_color = { unsigned char(rand() % 255), unsigned char(rand() % 255), unsigned char(rand() % 255) };
+}
+
+void Robot::Torso::setColor(float r, float g, float b) {
+	_color = { unsigned char(r * 255.), unsigned char(g * 255.), unsigned char(b * 255.) };
+}
+
 
 Robot::Head::Head(Robot* robot, std::vector<float> offset_pos, std::vector<float> offset_rot) {
 	_robot = robot;
@@ -196,6 +239,16 @@ void Robot::Head::draw() {
 		      _robot->_rotation[2] + _offset_rot[2],
 		      _robot->_rotation[3] + _offset_rot[3]);
 
+	
+	/*I used a teapot instead of a sphere because I thought it looked cooler.*/
 	glutSolidTeapot(30);
 	glPopMatrix();
+}
+
+void Robot::Head::randomColor() {
+	_color = { unsigned char(rand() % 255), unsigned char(rand() % 255), unsigned char(rand() % 255) };
+}
+
+void Robot::Head::setColor(float r, float g, float b) {
+	_color = { unsigned char(r * 255.), unsigned char(g * 255.), unsigned char(b * 255.) };
 }
