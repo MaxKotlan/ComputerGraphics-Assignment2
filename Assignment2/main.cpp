@@ -16,10 +16,11 @@ bool perspective = false;
 bool wireframe = false;
 bool clear = false;
 
+/*Number of robots to be created (in rows and columns)*/
 const int numRobots_x = 15;
 const int numRobots_z = 70;
-//const int numRobots_x = 1;
-//const int numRobots_z = 1;
+
+/*Space between each robot*/
 const int robot_spacing_x = 250;
 const int robot_spacing_z = 100;
 
@@ -27,6 +28,7 @@ const int robot_spacing_z = 100;
 Robot robot[numRobots_x][numRobots_z];
 
 
+/*Draw xyz axis*/
 void drawAxis() {
 	glBegin(GL_LINES);
 		glColor3f(1.0, 0.0, 0.0);
@@ -68,6 +70,7 @@ void myDisplay(void) {
 					robot[x][z].randomColor();
 	}
 
+	/*rotate camera*/
 	glRotatef(rot, 1.0f, 1.0f, 1.0f);
 
 	/*Loop through each robot, 
@@ -90,7 +93,7 @@ void myDisplay(void) {
 	}
 
 
-	/*if c is clicked, clear the screen, so nothing is rendered*/
+	/*if c is clicked, clear the screen, so nothing is rendered except for the world axis*/
 	if (clear)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -103,14 +106,18 @@ void myDisplay(void) {
 
 void init(void)
 {
+	/*background color black*/
 	glClearColor(.1, 0.1, 0.1, 0.0);
+
+	/*depth test, so that robots are rendered properly*/
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+
 	glViewport(0, 0, WIN_W, WIN_H);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	
+	/*camera orrientation*/
 	if (perspective) 
 		gluPerspective(90., WIN_W / WIN_H + 1.0, 0.1, 10000.);
 	else
@@ -123,11 +130,8 @@ void init(void)
 
 void mouseWheel(int wheel, int direction, int x, int y) {
 
-	// depending on the direction of rotation of the mouse wheel. 
-
+	/*I couldnt come up with a good way to zoom in, so this is what I'm doing instead*/
 	if (direction > 0) gluLookAt(-1000, 0.0, 0.0, 0, 0, 0, 0, 1, 0);
-
-	//else  // Zoom out
 
 	glutPostRedisplay();
 }
@@ -139,6 +143,7 @@ void onreshape(int width, int height) {
 	init();
 }
 
+/*Process Menu Click*/
 void menu(int num) {
 
 	switch (num) {
@@ -189,11 +194,12 @@ void menu(int num) {
 
 	}
 	
-
-	glutPostRedisplay(); // send an event to update the screen
+	/* send an event to update the screen */
+	glutPostRedisplay();
 
 }
 
+/*Creates Menu Layout*/
 void createMenu(void) {
 
 	static int menu_id;
@@ -233,6 +239,7 @@ void createMenu(void) {
 
 }
 
+/*Process keyboard input*/
 void procKeys(unsigned char key, int x, int y)
 {
 	switch (key) {
@@ -246,13 +253,14 @@ void procKeys(unsigned char key, int x, int y)
 	case 's': wireframe = false; break;
 	case 'c': clear = true; break;
 	case 'm': clear = false; break;
-	case 'i': rot += .1; break; // increment the rotation
-	case 'o': rot -= .1; break; // increment the rotation
+	case 'i': rot += .1; break; // increment the camera rotation speed
+	case 'o': rot -= .1; break; // decrement the camera rotation speed
 	case 'p': perspective = !perspective; init(); break;
 	case 27: exit(0); break;
 	}
 }
 
+/*process mouse*/
 void procMouse(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
@@ -260,6 +268,7 @@ void procMouse(int button, int state, int x, int y)
 	else bMouseDown = false;
 }
 
+/*main function. Application starts here*/
 int main(int argc, char** argv) {
 
 	srand(time(nullptr));
