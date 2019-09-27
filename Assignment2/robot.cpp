@@ -1,6 +1,10 @@
 #include "robot.h"
 #include <GL/glut.h>
 
+/*Default Robot constructor
+Creates all the body parts of the robot at the origin,
+then offsets them to so they're in the right postition and rotation
+*/
 Robot::Robot() {
 	std::vector <float> nullpos    = {   0.0,   0.0, 0.0 }; std::vector <float> nullrot = { 0.0, 0.0, 0.0, 0.0 };
 
@@ -24,13 +28,16 @@ Robot::Robot() {
 
 }
 
-
+/*
+Constructor for robot. Initalizes it with a position and a rotation.
+*/
 Robot::Robot(std::vector<float> position, std::vector<float> rotation){
 	_position = position;
 	_rotation = rotation;
 	Robot();
 }
 
+/*Destructor deletes all dynamically allocated bodyparts*/
 Robot::~Robot() {
 	delete _leftleg;
 	delete _rightleg;
@@ -40,12 +47,15 @@ Robot::~Robot() {
 	delete _head;
 }
 
+/*Calls shakehead on the head, to rotate it back and forth*/
 void Robot::shakeHead() {
 	_head->shake();
 }
 
 
-
+/*Draw function called in the main draw loop.
+calls draw on all the other bodyparts
+*/
 void Robot::draw() {
 	_leftleg->draw();
 	_rightleg->draw();
@@ -152,7 +162,13 @@ Robot::Head::Head(Robot* robot, std::vector<float> offset_pos, std::vector<float
 
 bool lookLeft = true;
 
+/*Really bad way to deal with rotating head.
+increases the rotation by 1 degree each frame, until it becomes greater than 120 degrees.
+if it becomes greater than 120 degrees decrease rotation (to switch head shake direction)
+*/
 void Robot::Head::shake() {
+	//_offset_rot[0] = float(int(_offset_rot[0] + 1.0) % 120); //( _offset_rot[0] + 1.0 )%120;
+
 	_offset_rot[0] += 1.0;
 
 	if (!lookLeft)
@@ -161,7 +177,7 @@ void Robot::Head::shake() {
 	if (_offset_rot[0] > 120)
 		lookLeft = false;
 	if (_offset_rot[0] < 60)
-		lookLeft = true;
+		lookLeft = true; 
 }
 
 void Robot::Head::draw() {
@@ -170,6 +186,7 @@ void Robot::Head::draw() {
 	glColor3ub(_color[0], _color[1], _color[2]);
 	
 	glPushMatrix();
+
 	glTranslatef(_robot->_position[0] + _offset_pos[0],
 		         _robot->_position[1] + _offset_pos[1],
 		         _robot->_position[2] + _offset_pos[2]);
