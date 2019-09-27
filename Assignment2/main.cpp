@@ -18,12 +18,32 @@ bool clear = false;
 
 const int numRobots_x = 15;
 const int numRobots_z = 70;
+//const int numRobots_x = 1;
+//const int numRobots_z = 1;
 const int robot_spacing_x = 250;
 const int robot_spacing_z = 100;
 
 /*Array of robots*/
 Robot robot[numRobots_x][numRobots_z];
 
+
+void drawAxis() {
+	glBegin(GL_LINES);
+		glColor3f(1.0, 0.0, 0.0);
+		glVertex3f(0.0f, 0.0f, 0.0f);
+		glVertex3f(100.0f, -0.0f, -0.0f);
+	glEnd();
+	glBegin(GL_LINES);
+		glColor3f(0.0, 1.0, 0.0);
+		glVertex3f(0.0f, 0.0f, 0.0f);
+		glVertex3f(0.0f, 100.0f, -0.0f);
+	glEnd();
+	glBegin(GL_LINES);
+		glColor3f(0.0, 0.0, 1.0);
+		glVertex3f(0.0f, 0.0f, 0.0f);
+		glVertex3f(0.0f, 0.0f, 100.0f);
+	glEnd();
+}
 
 void myDisplay(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -73,6 +93,9 @@ void myDisplay(void) {
 	/*if c is clicked, clear the screen, so nothing is rendered*/
 	if (clear)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	drawAxis();
+
 
 	/*flush the buffer for the next frame*/
 	glFlush();
